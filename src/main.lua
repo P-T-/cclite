@@ -45,6 +45,12 @@ local defaultConf = [[_conf = {
 }
 ]]
 
+if not love.filesystem.exists then -- removed in love 10
+	function love.filesystem.exists(...)
+		return love.filesystem.isFile(...) or love.filesystem.isDirectory(...)
+	end
+end
+
 -- Load configuration
 local defaultConfFunc = loadstring(defaultConf,"@config")
 defaultConfFunc() -- Load defaults.
